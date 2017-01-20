@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'movies/search'
 
+  post 'movies/search'
+
   get 'movies/show'
 
   # The priority is based upon order of creation: first created -> highest priority.
