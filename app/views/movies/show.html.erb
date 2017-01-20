@@ -1,2 +1,7 @@
-<h1>Movies#show</h1>
-<p>Find me in app/views/movies/show.html.erb</p>
+<h1>Movies Found</h1>
+<ul>
+  <% @movies.each do |movie| %>
+    <li><%= movie['Title'] %></li>
+  <% end %>
+</ul>
+<p><%= link_to('Search again', movies_search_path) %></p>
