@@ -1,7 +1,17 @@
 <h1>Movies Found</h1>
 <ul>
   <% @movies.each do |movie| %>
-    <li><%= movie['Title'] %></li>
+
+    <%= form_for Favourite.new, url: {action: "create", controller: "favourites", remote: true} do |f| %>
+      <li><%= movie['Title'] %></li>
+      <%= hidden_field(:favourite, :title, :value => movie['Title']) %>
+      <%= f.submit "Add to favourites" %>
+    <% end %>
+        
   <% end %>
 </ul>
 <p><%= link_to('Search again', movies_search_path) %></p>
+
+
+
+
