@@ -11,15 +11,16 @@ class MoviesController < ApplicationController
   private
 
   def request_movies_from_omdb
-    response = http_client.get(omdb_url)
+    url = omdb_url
+    response = request_movies(url)
     JSON.parse(response.body)['Search']
   end
 
-  def http_client
-    Net::HTTP.new(omdb_url.host, omdb_url.port)
+  def request_movies(url)
+    Net::HTTP.new(url.host, url.port).get(url)
   end
 
   def omdb_url
-    @omdb_url ||= URI.parse("http://www.omdbapi.com/?s=#{params[:q]}")
+    URI.parse("http://www.omdbapi.com/?s=#{params[:q]}")
   end
 end
