@@ -7,11 +7,7 @@
       <%= hidden_field(:favourite, :title, :value => movie['Title']) %>
       <%= f.submit "Add to favourites" %>
     <% end %>
-        
+
   <% end %>
 </ul>
-<p><%= link_to('Search again', movies_search_path) %></p>
-
-
-
-
+<p><%= link_to('Search again', movie_search_path) %></p>
