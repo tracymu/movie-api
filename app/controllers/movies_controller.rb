@@ -1,21 +1,26 @@
 class MoviesController < ApplicationController
   def search
-    return unless @title = params[:q]
-    make_request    
-    parse_response
-    render('movies/show')
+    if params[:q]
+      @movies = request_movies_from_omdb
+    end
   end
 
   def show
   end
 
-  def make_request
-    uri = URI.parse("http://www.omdbapi.com/?s=#{ @title }")
-    http =  Net::HTTP.new(uri.host, uri.port)
-    @results = http.get(uri.request_uri)
+  private
+
+  def request_movies_from_omdb
+    url = omdb_url
+    response = request_movies(url)
+    JSON.parse(response.body)['Search']
   end
 
-  def parse_response
-    @movies = JSON.parse(@results.body)['Search']
+  def request_movies(url)
+    Net::HTTP.new(url.host, url.port).get(url)
+  end
+
+  def omdb_url
+    URI.parse("http://www.omdbapi.com/?s=#{params[:q]}")
   end
 end
